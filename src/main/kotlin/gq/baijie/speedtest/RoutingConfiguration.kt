@@ -18,7 +18,6 @@ class RoutingConfiguration {
 //            GET("/echo", ::echo)
 //            POST("/echo", ::echo)
 //            (GET("/echo") or POST("/echo"))(::echo)
-//            (GET("/echo") or POST("/echo"))(::echo)
 //            ((method(HttpMethod.GET) or method(HttpMethod.POST)) and "/echo")(::echo)
             val GET = method(HttpMethod.GET)
             val POST = method(HttpMethod.POST)
@@ -34,6 +33,15 @@ class RoutingConfiguration {
                 GET("/{user}/customers", userHandler::getUserCustomers)
                 DELETE("/{user}", userHandler::deleteUser)
             }
+        }
+    }
+
+    @Bean
+    fun testRouterFunction(userHandler: UserHandler): RouterFunction<ServerResponse> {
+        //Java:  route(GET("/test"), request -> ServerResponse.ok().body(Mono.just("test66"), String.class));
+//        return route(GET("/test"), HandlerFunction<ServerResponse> { _ -> ServerResponse.ok().body(Mono.just("test66"), String::class.java) })
+        return router {
+            GET("/test") { ServerResponse.ok().syncBody("test") }
         }
     }
 
