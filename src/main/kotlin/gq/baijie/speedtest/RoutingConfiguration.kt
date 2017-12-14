@@ -12,6 +12,11 @@ import org.springframework.web.reactive.function.server.router
 class RoutingConfiguration {
 
     @Bean
+    fun speedTestRouterFunction(speedTestHandler: SpeedTestHandler) = router {
+        GET("/speedtest", speedTestHandler::speedTest)
+    }
+
+    @Bean
     fun echoRouterFunction(): RouterFunction<ServerResponse> {
 //        return route(GET("/echo").or(POST("/echo")), HandlerFunction<ServerResponse> { echo(it) })
         return router {
