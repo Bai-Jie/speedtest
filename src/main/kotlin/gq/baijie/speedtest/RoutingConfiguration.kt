@@ -12,8 +12,8 @@ import org.springframework.web.reactive.function.server.router
 class RoutingConfiguration {
 
     @Bean
-    fun speedTestRouterFunction(speedTestHandler: SpeedTestHandler) = router {
-        GET("/speedtest", speedTestHandler::speedTest)
+    fun speedTestRouterFunction() = router {
+        GET("/speedtest", ::speedTest)
     }
 
     @Bean
