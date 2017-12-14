@@ -8,9 +8,11 @@ buildscript {
 		mavenCentral()
 		maven { url "https://repo.spring.io/snapshot" }
 		maven { url "https://repo.spring.io/milestone" }
+		maven { url 'https://repo.spring.io/plugins-release' }
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath('io.spring.gradle:propdeps-plugin:0.0.9.RELEASE')
 		classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
 		classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
 	}
@@ -21,6 +23,7 @@ apply plugin: 'kotlin-spring'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'propdeps'
 
 group = 'gq.baijie.speedtest'
 version = '0.0.1-SNAPSHOT'
@@ -41,6 +44,7 @@ repositories {
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-webflux')
+	optional("org.springframework.boot:spring-boot-devtools")
 	compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	compile("org.jetbrains.kotlin:kotlin-reflect")
 	testCompile('org.springframework.boot:spring-boot-starter-test')
