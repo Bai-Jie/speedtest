@@ -12,17 +12,10 @@ import reactor.core.publisher.Mono
 class EchoConfiguration {
 
     @Bean
-    fun echoRouterFunction(): RouterFunction<ServerResponse> {
-//        return route(GET("/echo").or(POST("/echo")), HandlerFunction<ServerResponse> { echo(it) })
-        return router {
-            //            GET("/echo", ::echo)
-//            POST("/echo", ::echo)
-//            (GET("/echo") or POST("/echo"))(::echo)
-//            ((method(HttpMethod.GET) or method(HttpMethod.POST)) and "/echo")(::echo)
-            val GET = method(HttpMethod.GET)
-            val POST = method(HttpMethod.POST)
-            ((GET or POST) and "/echo")(::echo)
-        }
+    fun echoRouterFunction() = router {
+        val GET = method(HttpMethod.GET)
+        val POST = method(HttpMethod.POST)
+        ((GET or POST) and "/echo")(::echo)
     }
 
 }
@@ -34,14 +27,13 @@ fun echo(request: ServerRequest): Mono<ServerResponse> {
     println(request.headers())
     println(request.attributes())
     println(request.cookies())*/
-    request.apply {
+    request.run {
         listOf(toString(),
                 queryParams(),
                 headers(),
                 attributes(),
                 cookies())
-                .forEach { println(it) }
-    }
+    }.forEach { println(it) }
 //        println(request.body { inputMessage, _ -> inputMessage.body.reduce(0){t, u -> t + u.capacity() }.block() })
 //        println(request.body { inputMessage, _ -> inputMessage.body.reduce{t, u -> t.write(u) }.block() }?.asByteBuffer()?.let { StandardCharsets.UTF_8.decode(it) })
 //        println(request.body { inputMessage, _ -> inputMessage.body.reduce{t, u -> t.write(u) }.block()}?.let { StandardCharsets.UTF_8.decode(it.asByteBuffer()) })
