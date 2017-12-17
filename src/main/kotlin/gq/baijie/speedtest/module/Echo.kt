@@ -1,11 +1,31 @@
-package gq.baijie.speedtest
+package gq.baijie.speedtest.module
 
+import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
 import org.springframework.core.io.buffer.DataBuffer
-import org.springframework.web.reactive.function.server.ServerRequest
-import org.springframework.web.reactive.function.server.ServerResponse
-import org.springframework.web.reactive.function.server.body
-import org.springframework.web.reactive.function.server.bodyToFlux
+import org.springframework.http.HttpMethod
+import org.springframework.web.reactive.function.server.*
 import reactor.core.publisher.Mono
+
+
+@Configuration
+class EchoConfiguration {
+
+    @Bean
+    fun echoRouterFunction(): RouterFunction<ServerResponse> {
+//        return route(GET("/echo").or(POST("/echo")), HandlerFunction<ServerResponse> { echo(it) })
+        return router {
+            //            GET("/echo", ::echo)
+//            POST("/echo", ::echo)
+//            (GET("/echo") or POST("/echo"))(::echo)
+//            ((method(HttpMethod.GET) or method(HttpMethod.POST)) and "/echo")(::echo)
+            val GET = method(HttpMethod.GET)
+            val POST = method(HttpMethod.POST)
+            ((GET or POST) and "/echo")(::echo)
+        }
+    }
+
+}
 
 fun echo(request: ServerRequest): Mono<ServerResponse> {
     // ...
