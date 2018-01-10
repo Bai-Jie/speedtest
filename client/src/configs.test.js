@@ -1,4 +1,4 @@
-import {backendRoot} from "./commons";
+import {backendRoot} from "./configs";
 
 const originEnv = process.env;
 
@@ -14,20 +14,20 @@ afterAll(() => {
 
 it('change BACKEND_SCHEME and backendRoot()', () => {
     process.env.REACT_APP_BACKEND_SCHEME = "http";
-    expect(backendRoot()).toBe("http://localhost")
+    expect(backendRoot).toBe("http://localhost")
 });
 
 it('change BACKEND_HOST and backendRoot()', () => {
     process.env.REACT_APP_BACKEND_HOST = "test.host";
-    expect(backendRoot()).toBe("https://test.host")
+    expect(backendRoot).toBe("https://test.host")
 });
 
 it('change BACKEND_PORT and backendRoot()', () => {
     process.env.REACT_APP_BACKEND_PORT = "8080";
-    expect(backendRoot()).toBe("https://localhost:8080")
+    expect(backendRoot).toBe("https://localhost:8080")
 });
 
 it('check default backendRoot()', () => {
-    expect(backendRoot()).toBe("https://localhost")
+    expect(backendRoot).toBe("https://localhost")
 });
 
