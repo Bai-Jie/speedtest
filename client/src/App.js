@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
 import {backendRoot} from "./configs";
 
 class App extends Component {
