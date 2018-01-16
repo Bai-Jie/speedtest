@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {SpeedTestLink} from "./SpeedTestLink";
-import {Button} from "material-ui";
+import {Button, withStyles} from "material-ui";
 
 class SpeedTestLinkModel {
   constructor(blockSize, blockCount, id = Date.now()) {
@@ -10,7 +10,13 @@ class SpeedTestLinkModel {
   }
 }
 
-export class SpeedTestLinkList extends Component {
+const styles = theme => ({
+  verticalSpacing: {
+    marginTop: theme.spacing.unit * 2
+  }
+});
+
+class SpeedTestLinkList extends Component {
 
   constructor(props) {
     super(props);
@@ -49,9 +55,12 @@ export class SpeedTestLinkList extends Component {
     return (
       <div>
         {speedTestLinks}
+        <div className={this.props.classes.verticalSpacing} />
         <Button raised color="primary" onClick={this.handleClickAdd.bind(this)}>Add</Button>
       </div>
     );
   }
 
 }
+
+export default withStyles(styles)(SpeedTestLinkList);
